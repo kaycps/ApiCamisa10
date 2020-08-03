@@ -30,7 +30,9 @@ namespace ApiCamisa10
             services.AddDbContext<ApiDbContext>(options => options.
                UseMySql("Server=localhost;Database=api_joga_10;User=root;Password=160494;"));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

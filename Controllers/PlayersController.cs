@@ -25,7 +25,10 @@ namespace ApiCamisa10.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
         {
-            return await _context.Players.ToListAsync();
+            return await _context.Players.Include(a=>a.level).AsNoTracking()
+                                        .Include(a=>a.position).AsNoTracking()
+                                        .Include(a=>a.team).AsNoTracking()
+                                        .ToListAsync();
         }
 
         // GET: api/Players/5
