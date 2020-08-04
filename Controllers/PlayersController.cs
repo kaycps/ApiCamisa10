@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ApiCamisa10.DB;
 using ApiCamisa10.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ApiCamisa10.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlayersController : ControllerBase
     {
         private readonly ApiDbContext _context;
