@@ -16,6 +16,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace ApiCamisa10
 {
@@ -32,7 +33,7 @@ namespace ApiCamisa10
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApiDbContext>(options => options.
-               UseMySql("Server=localhost;Database=api_joga_10;User=root;Password=12345678;"));
+               UseMySql("Server=localhost;Database=api_joga_10;User=root;Password=160494;"));
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
@@ -60,6 +61,24 @@ namespace ApiCamisa10
                     ValidateAudience = false
                 };
             });
+
+            //swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "API para controle de alunos de um curso de inglês",
+                    Description = "Desafio realizado para vaga backend",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Kayc Prado dos Santos",
+                        Email = "pradokayc@gmail.com",
+                        Url = new Uri("https://github.com/kaycps"),
+                    }
+                });
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,8 +97,18 @@ namespace ApiCamisa10
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            //swagger
+            app.UseSwagger();
+
+            //swaggerUi
+            app.UseSwaggerUI(s =>
             {
+                s.SwaggerEndpoint("/swagger/v1/swagger.json",
+                    "API curso de inglês");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {               
                 endpoints.MapControllers();
             });
         }

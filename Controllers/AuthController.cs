@@ -84,7 +84,7 @@ namespace ApiCamisa10.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<dynamic>> Teste()
         {
-            return Ok(new { message = "olá" });
+            return Ok(new { message = "Bem vindo ao camisa10, seu app para de escolha de time!" });
         }
 
         private bool UserExists(int id)
