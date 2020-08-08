@@ -19,7 +19,7 @@ RUN dotnet publish "ApiCamisa10.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-#ENTRYPOINT ["dotnet", "ApiCamisa10.dll"]
+ENTRYPOINT ["dotnet", "ApiCamisa10.dll"]
 
-CMD ASPNETCORE_URLS = http://*:$PORT dotnet ApiCamisa10.dll
+
 
